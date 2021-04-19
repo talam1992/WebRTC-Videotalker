@@ -13,3 +13,10 @@ export const connectWithWebSocket = () => {
   });
 }
 ;
+
+export const registerNewUser = (username) => {
+  socket.emit('register-new-user', {
+    username: username,
+    socketId: socket.id
+  })
+}
