@@ -17,7 +17,7 @@ const io = socket(server, {
   }
 });
 
-const peers = [];
+let peers = [];
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
@@ -37,6 +37,15 @@ io.on('connection', (socket) => {
     console.log('registered new user');
     console.log(peers);
 
+    io.sockets.emit('broadcast', {
+      event: broadcastEventTypes.ACTIVE_USERS,
+      activeUsers: peers
+    });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    peers = peers.filter(peer => peer.socketId !== socket.id);
     io.sockets.emit('broadcast', {
       event: broadcastEventTypes.ACTIVE_USERS,
       activeUsers: peers
