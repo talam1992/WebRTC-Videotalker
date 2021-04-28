@@ -58,14 +58,14 @@ export const acceptIncommingCallRequest = () => {
     wss.sendPreOfferAnswer({
         callerSocketId: connectedUserSocketId,
         answer: preOfferAnswers.CALL_ACCEPTED
-    })
+    });
 };
 
 export const rejectIncommingCallRequest = () => {
     wss.sendPreOfferAnswer({
         callerSocketId: connectedUserSocketId,
         answer: preOfferAnswers.CALL_REJECTED
-    })
+    });
 };
 
 export const checkIfCallIsPossible = () => {
@@ -75,4 +75,9 @@ export const checkIfCallIsPossible = () => {
     } else {
         return true;
     }
+};
+
+export const resetCallData = () => {
+    connectedUserSocketId = null;
+    store.dispatch(setCallState(callStates.CALL_AVAILABLE));
 };
