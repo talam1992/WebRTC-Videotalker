@@ -2,6 +2,12 @@ import store from '../../store/store';
 import { callStates, setCallerUsername, setCallingDialogVisible, setCallState, setLocalStream } from "../../store/actions/callActions";
 import * as wss from '../wssConnection/wssConnection';
 
+const preOfferAnswers = {
+    CALL_ACCEPTED: 'CALL_ACCEPTED',
+    CALL_REJECTED: 'CALL_REJECTED',
+    CALL_NOT_AVAILABLE: 'CALL_NOT_AVAILABLE'
+};
+
 const defaultConstrains = {
     video: true,
     audio: true
@@ -35,7 +41,38 @@ export const callToOtherUser = (calleeDetails) => {
 };
 
 export const handlePreOffer = (data) => {
-    connectedUserSocketId = data.callerSocketId;
-    store.dispatch(setCallerUsername(data.callerUsername));
-    store.dispatch(setCallState(callStates.CALL_REQUESTED));
+
+    if(checkIfCallIsPossible()) {
+        connectedUserSocketId = data.callerSocketId;
+        store.dispatch(setCallerUsername(data.callerUsername));
+        store.dispatch(setCallState(callStates.CALL_REQUESTED));
+    } else {
+        wss.sendPreOfferAnswer({
+            callerSocketId: data.callerSocketId,
+            answer: preOfferAnswers.CALL_NOT_AVAILABLE
+        });
+    }
+};
+
+export const acceptIncommingCallRequest = () => {
+    wss.sendPreOfferAnswer({
+        callerSocketId: connectedUserSocketId,
+        answer: preOfferAnswers.CALL_ACCEPTED
+    })
+};
+
+export const rejectIncommingCallRequest = () => {
+    wss.sendPreOfferAnswer({
+        callerSocketId: connectedUserSocketId,
+        answer: preOfferAnswers.CALL_REJECTED
+    })
+};
+
+export const checkIfCallIsPossible = () => {
+    if(store.getState().call.localStream === null ||
+    store.getState().call.callState !== callStates.CALL_AVAILABLE) {
+        return false;
+    } else {
+        return true;
+    }
 };
