@@ -5,16 +5,17 @@ import RemoteVideoView from '../RemoteVideoView/RemoteVideoView';
 import CallRejectedDialog from '../CallRejectedDialog/CallRejectedDialog';
 import IncomingCallDialog from '../IncomingCallDialog/IncomingCallDialog';
 import CallingDialog from '../CallingDialog/CallingDialog';
+import { callStates } from '../../../store/actions/callActions';
 
 const DirectCall = (props) => {
-    const { localStream, remoteStream } =  props;
+    const { localStream, remoteStream, callState, callerUsername, callingDialogVisible } =  props;
     return (
         <>
             <LocalVideoView localStream={localStream} />
             {remoteStream && <RemoteVideoView remoteStream={remoteStream} />}
-            {<CallRejectedDialog />}
-            {<IncomingCallDialog />}
-            {<CallingDialog />}
+            {/*<CallRejectedDialog />*/}
+            {callState === callStates.CALL_REQUESTED && <IncomingCallDialog callerUsername={callerUsername} />}
+            {callingDialogVisible && <CallingDialog />}
         </>
     );
 };
