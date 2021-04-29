@@ -14,7 +14,7 @@ const CallRejectedDialog = ({ reason, hideCallRejectedDialog }) => {
     
     
     return (
-        <div className='call_rejected_dialog background_secondary_coloe'>
+        <div className='call_rejected_dialog background_secondary_color'>
             <span>
                 {reason}
             </span>

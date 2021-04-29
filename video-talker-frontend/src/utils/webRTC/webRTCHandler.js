@@ -71,6 +71,9 @@ export const rejectIncommingCallRequest = () => {
 };
 
 export const handlePreOfferAnswer = (data) => {
+
+    store.dispatch(setCallingDialogVisible(false));
+
     if (data.answer === preOfferAnswers.CALL_ACCEPTED) {
         // send webRTC offer
     } else {

@@ -42,4 +42,4 @@ function mapDispatchToProps (dispatch) {
     };
 }
 
-export default connect(mapStateToProps, null)(DirectCall);
+export default connect(mapStateToProps, mapDispatchToProps)(DirectCall);
