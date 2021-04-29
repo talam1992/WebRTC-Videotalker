@@ -66,6 +66,21 @@ export const rejectIncommingCallRequest = () => {
         callerSocketId: connectedUserSocketId,
         answer: preOfferAnswers.CALL_REJECTED
     });
+
+    resetCallData();
+};
+
+export const handlePreOfferAnswer = (data) => {
+    if (data.answer === preOfferAnswers.CALL_ACCEPTED) {
+        // send webRTC offer
+    } else {
+        let rejectionReason;
+        if (data.answer === preOfferAnswers.CALL_NOT_AVAILABLE) {
+            rejectionReason = 'Callee is not able to pick up the call right now';
+        } else {
+            rejectionReason = 'Call rejected by the callee';
+        }
+    }
 };
 
 export const checkIfCallIsPossible = () => {
