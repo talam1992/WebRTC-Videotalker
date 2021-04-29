@@ -1,5 +1,5 @@
 import store from '../../store/store';
-import { callStates, setCallerUsername, setCallingDialogVisible, setCallState, setLocalStream } from "../../store/actions/callActions";
+import { callStates, setCallerUsername, setCallingDialogVisible, setCallRejected, setCallState, setLocalStream } from "../../store/actions/callActions";
 import * as wss from '../wssConnection/wssConnection';
 
 const preOfferAnswers = {
@@ -80,6 +80,10 @@ export const handlePreOfferAnswer = (data) => {
         } else {
             rejectionReason = 'Call rejected by the callee';
         }
+        store.dispatch(setCallRejected({
+            rejected: true,
+            reason: rejectionReason
+        }))
     }
 };
 

@@ -4,7 +4,11 @@ const initState = {
   localStream: null,
   callState: calldActions.callStates.CALL_UNAVAILABLE,
   callingDialogVisible: false,
-  callerUsername: ''
+  callerUsername: '',
+  callRejected: {
+    rejected: false,
+    reason: ''
+  }
 };
 
 const reducer = (state = initState, action) => {
@@ -28,6 +32,11 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         callerUsername: action.callerUsername
+      }
+    case calldActions.CALL_SET_CALL_REJECTED:
+      return {
+        ...state,
+        callRejected: action.callRejected
       }
     default:
       return state;
