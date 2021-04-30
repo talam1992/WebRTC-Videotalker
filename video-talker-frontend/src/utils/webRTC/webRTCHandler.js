@@ -13,11 +13,21 @@ const defaultConstrains = {
     audio: true
 };
 
+const configuration = {
+    iceServers: [{
+        urls: 'stun:stun.l.google.com:13902'
+    }]
+};
+
+let connectedUserSocketId;
+let peerConnection;
+
 export const getLocalStream = () => {
     navigator.mediaDevices.getUserMedia(defaultConstrains)
     .then(stream => {
         store.dispatch(setLocalStream(stream));
         store.dispatch(setCallState(callStates.CALL_AVAILABLE));
+        createPeerConnection();
     })
     .catch(err => {
         console.log('error occured when trying to get access to get local stream');
@@ -26,7 +36,23 @@ export const getLocalStream = () => {
 }
 ;
 
-let connectedUserSocketId;
+const createPeerConnection = () => {
+    peerConnection = new RTCPeerConnection(configuration);
+
+    const localStream = store.getState().call.localStream;
+
+    for (const track of localStream.getTrack()) {
+        peerConnection.addTrack(track, localStream);
+    };
+
+    peerConnection.ontrack = ({ streams: [stream] }) => {
+        // dispatch remote stream in our store
+    }
+
+    peerConnection.onicecandidate = (event) => {
+        // send to connected user our ice candidate
+    }
+};
 
 export const callToOtherUser = (calleeDetails) => {
     connectedUserSocketId = calleeDetails.socketId;
@@ -86,7 +112,9 @@ export const handlePreOfferAnswer = (data) => {
         store.dispatch(setCallRejected({
             rejected: true,
             reason: rejectionReason
-        }))
+        }));
+
+        resetCallData();
     }
 };
 
