@@ -96,6 +96,15 @@ export const rejectIncommingCallRequest = () => {
     resetCallData();
 };
 
+const sendOffer = async () => {
+    const offer = await peerConnection.createOffer();
+    await peerConnection.setLocalDescription(offer);
+    wss.sendWebRTCOffer({
+        calleeSocketId: connectedUserSocketId,
+        offer: offer
+    });
+};
+
 export const handlePreOfferAnswer = (data) => {
 
     store.dispatch(setCallingDialogVisible(false));
