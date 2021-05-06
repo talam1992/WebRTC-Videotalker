@@ -106,13 +106,17 @@ const sendOffer = async () => {
 };
 
 export const handleOffer = async (data) => {
-    await peerConnection.setRemoteDescriptio(data.offer);
+    await peerConnection.setRemoteDescription(data.offer);
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
     wss.sendWebRTCAnswer({
         callerSocketId: connectedUserSocketId,
         answer: answer
     });
+};
+
+export const handleAnswer = async (data) => {
+    await peerConnection.setRemoteDescription(data.answer);
 };
 
 export const handlePreOfferAnswer = (data) => {
