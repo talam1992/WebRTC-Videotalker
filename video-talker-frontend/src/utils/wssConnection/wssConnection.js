@@ -34,7 +34,7 @@ export const connectWithWebSocket = () => {
   });
 
   socket.on('webRTC-offer', (data) => {
-    webRTCHandler.handlePreOffer(data)
+    webRTCHandler.handleOffer(data);
   });
 
   socket.on('webRTC-answer', (data) => {
@@ -42,7 +42,7 @@ export const connectWithWebSocket = () => {
   });
 
   socket.on('webRTC-candidate', (data) => {
-    webRTCHandler.handleCandidate(data)
+    webRTCHandler.handleCandidate(data);
   });
 };
 
@@ -64,7 +64,7 @@ export const sendPreOfferAnswer = (data) => {
 };
 
 export const sendWebRTCOffer = (data) => {
-  socket.emit('pre-offer-answer', data);
+  socket.emit('webRTC-offer', data);
 };
 
 export const sendWebRTCAnswer = (data) => {
