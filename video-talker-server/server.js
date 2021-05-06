@@ -81,4 +81,11 @@ io.on('connection', (socket) => {
       answer: data.answer
     });
   });
+
+  socket.on('webRTC-candidate', (data) => {
+    console.log('handling ice candidate');
+    io.to(data.connectedUserSocketId).emit('webRTC-candidate', {
+      candidate: data.candidate
+    });
+  });
 });
