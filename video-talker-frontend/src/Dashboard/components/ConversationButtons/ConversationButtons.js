@@ -10,7 +10,7 @@ const styles = {
         bottom: '22%',
         left: '35%'
     },
-    icons: {
+    icon: {
         width: '25px',
         height: '25px',
         fill: '#e6e5e8'
@@ -18,19 +18,41 @@ const styles = {
 };
 
 const ConversationButtons = (props) => {
+    const {
+        localStream, 
+        localCameraEnabled, 
+        localMicrophoneEnabled, 
+        setCameraEnabled, 
+        setMicrophoneEnabled
+    } = props;
+    
+    
+    const handleMicButtonPressed = () => {
+        const micEnabled = localMicrophoneEnabled;
+        localStream.getAudioTracks()[0].enabled = !micEnabled;
+        setMicrophoneEnabled(!micEnabled);
+    };
+
+    const handleCameraButtonPressed = () => {
+        const cameraEnabled = localCameraEnabled;
+        localStream.getVideoTracks()[0].enabled = !cameraEnabled;
+        setCameraEnabled(!cameraEnabled);
+    };
+
+
     return (
         <div style={styles.buttonContainer}>
-            <ConversationButton>
-                <MdMic style={styles.icons} />
+            <ConversationButton onClickHandler={handleMicButtonPressed}>
+                {localMicrophoneEnabled ? <MdMic style={styles.icon} /> : <MdMicOff style={styles.icon} />}
             </ConversationButton>
             <ConversationButton>
-                <MdCallEnd style={styles.icons} />
+                <MdCallEnd style={styles.icon} />
+            </ConversationButton>
+            <ConversationButton onClickHandler={handleCameraButtonPressed}>
+                {localCameraEnabled ? <MdVideocam style={styles.icon} /> : <MdVideocamOff style={styles.icon} />}
             </ConversationButton>
             <ConversationButton>
-                <MdVideocam style={styles.icons} />
-            </ConversationButton>
-            <ConversationButton>
-                <MdVideoLabel style={styles.icons} />
+                <MdVideoLabel style={styles.icon} />
             </ConversationButton>
         </div>
     );
