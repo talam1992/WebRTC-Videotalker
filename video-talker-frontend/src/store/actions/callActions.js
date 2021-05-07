@@ -10,6 +10,7 @@ export const CALL_SET_CALL_STATE = 'CALL.SET_CALL_STATE';
 export const CALL_SET_CALLING_DIALOG_VISIBLE = 'CALL.SET_CALLING_DIALOG_VISIBLE';
 export const CALL_SET_CALLER_USERNAME = 'CALL.SET_CALLER_USERNAME';
 export const CALL_SET_CALL_REJECTED = 'CALL.SET_CALL_REJECTED';
+export const CALL_SET_REMOTE_STREAM = 'CALL.SET_REMOTE_STREAM';
 
 export const setLocalStream = (localStream) => {
     return {
@@ -47,5 +48,12 @@ export const setCallRejected = (callRejectedDetails) => {
             rejected: callRejectedDetails.rejected,
             reason: callRejectedDetails.reason
         }
+    };
+};
+
+export const setRemoteStream = (remoteStream) => {
+    return {
+        type: CALL_SET_REMOTE_STREAM,
+        remoteStream
     };
 };

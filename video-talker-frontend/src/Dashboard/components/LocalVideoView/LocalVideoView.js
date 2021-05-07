@@ -33,7 +33,7 @@ const LocalVideoView = props => {
     
     return (
         <div style={styles.videoContainer} className='background_secondary_color'>
-            <vido style={styles.videoElement} ref={localVideoRef} autoPlay muted ></vido>
+            <video style={styles.videoElement} ref={localVideoRef} autoPlay muted ></video>
         </div>
     );
 };

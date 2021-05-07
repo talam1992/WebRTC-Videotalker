@@ -8,7 +8,8 @@ const initState = {
   callRejected: {
     rejected: false,
     reason: ''
-  }
+  },
+  remoteStream: null
 };
 
 const reducer = (state = initState, action) => {
@@ -32,12 +33,17 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         callerUsername: action.callerUsername
-      }
+      };
     case calldActions.CALL_SET_CALL_REJECTED:
       return {
         ...state,
         callRejected: action.callRejected
-      }
+      };
+    case calldActions.CALL_SET_REMOTE_STREAM:
+      return{
+        ...state,
+        remoteStream: action.remoteStream
+      };
     default:
       return state;
   }

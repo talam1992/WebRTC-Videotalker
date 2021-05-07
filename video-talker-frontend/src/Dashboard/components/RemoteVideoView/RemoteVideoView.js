@@ -29,7 +29,7 @@ const RemoteVideoView = props => {
     
     return (
         <div style={styles.videoContainer} >
-            <vido style={styles.videoElement} ref={remoteVideoRef} autoPlay muted ></vido>
+            <video style={styles.videoElement} ref={remoteVideoRef} autoPlay muted ></video>
         </div>
     );
 };
