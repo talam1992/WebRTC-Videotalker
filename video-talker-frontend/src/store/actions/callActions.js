@@ -3,73 +3,75 @@ export const callStates = {
     CALL_AVAILABLE: 'CALL_AVAILABLE',
     CALL_REQUESTED: 'CALL_REQUESTED',
     CALL_IN_PROGRESS: 'CALL_IN_PROGRESS'
-};
-
-export const CALL_SET_LOCAL_STREAM = 'CALL_SET_LOCAL_STREAM';
-export const CALL_SET_CALL_STATE = 'CALL.SET_CALL_STATE';
-export const CALL_SET_CALLING_DIALOG_VISIBLE = 'CALL.SET_CALLING_DIALOG_VISIBLE';
-export const CALL_SET_CALLER_USERNAME = 'CALL.SET_CALLER_USERNAME';
-export const CALL_SET_CALL_REJECTED = 'CALL.SET_CALL_REJECTED';
-export const CALL_SET_REMOTE_STREAM = 'CALL.SET_REMOTE_STREAM';
-export const CALL_SET_LOCAL_MICROPHONE_ENABLED = 'CALL.SET_LOCAL_MICROPHONE_ENABLED';
-export const CALL_SET_LOCAL_CAMERA_ENABLED = 'CALL.SET_LOCAL_CAMERA_ENABLED';
-
-export const setLocalStream = (localStream) => {
+  };
+  
+  export const CALL_SET_LOCAL_STREAM = 'CALL.SET_LOCAL_STREAM';
+  export const CALL_SET_CALL_STATE = 'CALL.SET_CALL_STATE';
+  export const CALL_SET_CALLING_DIALOG_VISIBLE = 'CALL.SET_CALLING_DIALOG_VISIBLE';
+  export const CALL_SET_CALLER_USERNAME = 'CALL.SET_CALLER_USERNAME';
+  export const CALL_SET_CALL_REJECTED = 'CALL.SET_CALL_REJECTED';
+  export const CALL_SET_REMOTE_STREAM = 'CALL.SET_REMOTE_STREAM';
+  export const CALL_SET_LOCAL_MICROPHONE_ENABLED = 'CALL.SET_LOCAL_MICROPHONE_ENABLED';
+  export const CALL_SET_LOCAL_CAMERA_ENABLED = 'CALL.SET_LOCAL_CAMERA_ENABLED';
+  
+  export const setLocalStream = (localStream) => {
     return {
-        type: CALL_SET_LOCAL_STREAM,
-        localStream
+      type: CALL_SET_LOCAL_STREAM,
+      localStream
     };
-}
-;
-
-export const setCallState = (callState) => {
-    return{
-        type: CALL_SET_CALL_STATE,
-        callState
-    };
-};
-
-export const setCallingDialogVisible = (visible) => {
+  }
+  ;
+  
+  export const setCallState = (callState) => {
     return {
-        type: CALL_SET_CALLING_DIALOG_VISIBLE,
-        visible
+      type: CALL_SET_CALL_STATE,
+      callState
     };
-};
-
-export const setCallerUsername = (callerUsername) => {
+  };
+  
+  export const setCallingDialogVisible = (visible) => {
     return {
-        type: CALL_SET_CALLER_USERNAME,
-        callerUsername
+      type: CALL_SET_CALLING_DIALOG_VISIBLE,
+      visible
     };
-};
-
-export const setCallRejected = (callRejectedDetails) => {
+  };
+  
+  export const setCallerUsername = (callerUsername) => {
     return {
-        type: CALL_SET_CALL_REJECTED,
-        callRejected: {
-            rejected: callRejectedDetails.rejected,
-            reason: callRejectedDetails.reason
-        }
+      type: CALL_SET_CALLER_USERNAME,
+      callerUsername
     };
-};
-
-export const setRemoteStream = (remoteStream) => {
+  }
+  ;
+  
+  export const setCallRejected = (callRejectedDetails) => {
     return {
-        type: CALL_SET_REMOTE_STREAM,
-        remoteStream
+      type: CALL_SET_CALL_REJECTED,
+      callRejected: {
+        rejected: callRejectedDetails.rejected,
+        reason: callRejectedDetails.reason
+      }
     };
-};
-
-export const setLocalMicrophoneEnabled = (enabled) => {
+  };
+  
+  export const setRemoteStream = (remoteStream) => {
     return {
-        type: CALL_SET_LOCAL_MICROPHONE_ENABLED,
-        enabled
+      type: CALL_SET_REMOTE_STREAM,
+      remoteStream
     };
-};
-
-export const setLocalCameraEnabled = (enabled) => {
+  }
+  ;
+  
+  export const setLocalMicrophoneEnabled = (enabled) => {
     return {
-        type: CALL_SET_LOCAL_CAMERA_ENABLED,
-        enabled
+      type: CALL_SET_LOCAL_MICROPHONE_ENABLED,
+      enabled
     };
-};
+  };
+  
+  export const setLocalCameraEnabled = (enabled) => {
+    return {
+      type: CALL_SET_LOCAL_CAMERA_ENABLED,
+      enabled
+    };
+  };  
