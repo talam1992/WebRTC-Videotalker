@@ -89,4 +89,8 @@ io.on('connection', (socket) => {
       candidate: data.candidate
     });
   });
+
+  socket.on('user-hanged-up', (data) => {
+    io.to(data.connectedUserSocketId).emit('user-hanged-up');
+  });
 });
