@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import DashboardInformation from './components/DashboardInformation/DashboardInformation';
 import { callStates } from '../store/actions/callActions';
 import './Dashboard.css';
+import GroupCallRoomsList from './components/GroupCallRoomsList/GroupCallRoomsList';
 
 const Dashboard = ({ username, callState }) => {
 
@@ -24,7 +25,7 @@ useEffect(() => {
             {callState !== callStates.CALL_IN_PROGRESS && <DashboardInformation username={username} />}
         </div>
         <div className='dashboard_rooms_container background_secondary_color'>
-            rooms
+            <GroupCallRoomsList />
         </div>
       </div>
       <div className='dashboard_right_section background_secondary_color'>
