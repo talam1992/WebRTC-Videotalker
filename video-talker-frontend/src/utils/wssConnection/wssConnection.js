@@ -3,7 +3,8 @@ import store from '../../store/store';
 import * as dashboardActions from '../../store/actions/dashboardActions';
 import * as webRTCHandler from '../webRTC/webRTCHandler';
 
-const SERVER = 'http://localhost:5000';
+const SERVER = "https://fathomless-tundra-67025.herokuapp.com/";
+//const SERVER = 'http://localhost:5000';
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
