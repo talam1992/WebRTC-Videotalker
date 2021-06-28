@@ -1,5 +1,5 @@
 import store from '../../store/store';
-import { resetCallDataState, setLocalStream, setCallState, callStates, setCallingDialogVisible, setCallerUsername, setCallRejected, setRemoteStream, setScreenSharingActive } from '../../store/actions/callActions';
+import { setLocalStream, setCallState, callStates, setCallingDialogVisible, setCallerUsername, setCallRejected, setRemoteStream, setScreenSharingActive, resetCallDataState } from '../../store/actions/callActions';
 import * as wss from '../wssConnection/wssConnection';
 
 const preOfferAnswers = {
@@ -207,6 +207,14 @@ export const hangUp = () => {
 };
 
 const resetCallDataAfterHangUp = () => {
+  peerConnection.close();
+  peerConnection = null;
+  createPeerConnection();
+  resetCallData();
+
+  const localStream = store.getState().call.localStream;
+  localStream.getVideoTracks()[0].enabled = true;
+  localStream.getAudioTracks()[0].enabled = true;
 
   if (store.getState().call.screenSharingActive) {
     screenSharingStream.getTracks().forEach(track => {
@@ -215,16 +223,6 @@ const resetCallDataAfterHangUp = () => {
   }
 
   store.dispatch(resetCallDataState());
-  peerConnection.close();
-  peerConnection = null;
-  createPeerConnection();
-  resetCallData();
-
-  const localStream = store.getState().call.localStream;
-
-  localStream.getVideoTracks()[0].enabled = true;
-  localStream.getAudioTracks()[0].enabled = true;
-
 };
 
 export const resetCallData = () => {

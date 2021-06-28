@@ -93,4 +93,3 @@ npm start
 ```
 npm install --save react-icons
 ```
-
