@@ -1,5 +1,5 @@
 {
-  "name": "video-talker-server",
+  "name": "video-talker",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
