@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "video-talker-frontend": "cd video-talker-frontend && npm start",
+    "dev": "concurrently \"node server.js\" \"npm run video-talker-frontend\""
   },
   "author": "Timothy Lam",
   "license": "ISC",
