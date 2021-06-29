@@ -6,11 +6,11 @@ import './GroupCallRoomsList.css';
 const dummyList = [
   {
     roomId: '123123',
-    hostName: 'Mark'
+    hostName: 'User1'
   },
   {
     roomId: '3213213',
-    hostName: 'Paul'
+    hostName: 'User2'
   }
 ];
 
