@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import GroupCallButton from '../GroupCallButton/GroupCallButton';
 import { callStates } from '../../../store/actions/callActions';
 import * as webRTCGroupCallHandler from '../../../utils/webRTC/webRTCGroupCallHandler';
+import GroupCallRoom from '../GroupCallRoom/GroupCallRoom';
 
 const GroupCall = (props) => {
-    const { callState, localStream }  = props;
+    const { callState, localStream, groupCallActive }  = props;
 
     const createRoom = () => {
         // creatie room
@@ -14,8 +15,9 @@ const GroupCall = (props) => {
 
     return (
         <>
-            {localStream && callState !== callStates.CALL_IN_PROGRESS && 
-            <GroupCallButton onClickHandler={createRoom} label='Create room'/>}         
+            {!groupCallActive && localStream && callState !== callStates.CALL_IN_PROGRESS && 
+                <GroupCallButton onClickHandler={createRoom} label='Create room'/>}
+            {groupCallActive && <GroupCallRoom />}
         </>
     );
 };
