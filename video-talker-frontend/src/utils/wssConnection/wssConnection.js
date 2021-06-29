@@ -84,6 +84,12 @@ export const sendUserHangedUp = (data) => {
   socket.emit('user-hanged-up', data);
 };
 
+//emitting events related with group calls
+
+export const registerGroupCall = (data) => {
+  socket.emit('group-call-register', data)
+};
+
 const handleBroadcastEvents = (data) => {
   switch (data.event) {
     case broadcastEventTypes.ACTIVE_USERS:
