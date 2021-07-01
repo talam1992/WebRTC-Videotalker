@@ -2,7 +2,7 @@ const express = require('express');
 const socket = require('socket.io');
 const { ExpressPeerServer } = require('peer');
 const groupCallHandler = require('./groupCallHandler');
-const { v4: uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require('uuid');
 const PORT = 5000;
 
 const app = express();
@@ -28,7 +28,7 @@ const io = socket(server, {
 });
 
 let peers = [];
-let groupCallRooms = [];
+const groupCallRooms = [];
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
@@ -123,7 +123,6 @@ io.on('connection', (socket) => {
     };
 
     groupCallRooms.push(newGroupCallRoom);
-    //console.log(groupCallRooms);
     io.sockets.emit('broadcast', {
       event: broadcastEventTypes.GROUP_CALL_ROOMS,
       groupCallRooms
@@ -137,5 +136,13 @@ io.on('connection', (socket) => {
     });
 
     socket.join(data.roomId);
+  });
+
+  socket.on('group-call-user-left', (data) => {
+    socket.leave(data.roomId);
+
+    io.to(data.roomId).emit('group-call-user-left', {
+      streamId: data.streamId
+    });
   });
 });
