@@ -24,6 +24,7 @@ const configuration = {
 
 let connectedUserSocketId;
 let peerConnection;
+let dataChannel;
 
 export const getLocalStream = () => {
   navigator.mediaDevices.getUserMedia(defaultConstrains)
@@ -51,6 +52,24 @@ const createPeerConnection = () => {
   peerConnection.ontrack = ({ streams: [stream] }) => {
     store.dispatch(setRemoteStream(stream));
   };
+
+  // incoming data channel messages
+  peerConnection.ondatachannel = (event) => {
+    const dataChannel = event.channel;
+
+    dataChannel.onopen = () => {
+      console.log('peer connectio is ready to recieve data channel messages')
+    };
+
+    dataChannel.onmessage = (event) => {
+    };
+  };
+
+  dataChannel = peerConnection.createDataChannel('chat');
+
+  dataChannel.onopen = () => {
+    console.log('chat data channel successfully opened')
+  }
 
   peerConnection.onicecandidate = (event) => {
     console.log('geeting candidates from stun server');
