@@ -3,7 +3,7 @@
 
  ### Author: Timothy Lam
 
- ## Under Construction
+Link: https://webrtcvideotalker.vercel.app/
 
  https://peerjs.com/
 
@@ -68,10 +68,6 @@ npm install --save peer
 npm install --save cors
 ```
 
-```
-npm install --save twilio
-```
-
 ## How to use
 
 ```
@@ -102,5 +98,3 @@ npm start
 npm install --save react-icons
 ```
 
-
-npm install --save axios
