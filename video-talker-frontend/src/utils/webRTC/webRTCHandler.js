@@ -1,7 +1,7 @@
 import store from '../../store/store';
 import { setLocalStream, setCallState, callStates, setCallingDialogVisible, setCallerUsername, setCallRejected, setRemoteStream, setScreenSharingActive, resetCallDataState, setMessage } from '../../store/actions/callActions';
 import * as wss from '../wssConnection/wssConnection';
-import { getTurnServers } from './TURN';
+
 
 const preOfferAnswers = {
   CALL_ACCEPTED: 'CALL_ACCEPTED',
