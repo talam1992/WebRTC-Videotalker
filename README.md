@@ -64,6 +64,14 @@ npm install redux-devtools-extension --save
 npm install --save peer
 ```
 
+```
+npm install --save cors
+```
+
+```
+npm install --save twilio
+```
+
 ## How to use
 
 ```
@@ -93,3 +101,6 @@ npm start
 ```
 npm install --save react-icons
 ```
+
+
+npm install --save axios
