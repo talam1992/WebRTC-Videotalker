@@ -2,9 +2,8 @@ import socketClient from 'socket.io-client';
 import store from '../../store/store';
 import * as dashboardActions from '../../store/actions/dashboardActions';
 import * as webRTCHandler from '../webRTC/webRTCHandler';
-import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler'
+import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler';
 
-//const SERVER = "https://videotalkerserver.herokuapp.com/";
 const SERVER = 'http://localhost:5000';
 
 const broadcastEventTypes = {
@@ -51,11 +50,15 @@ export const connectWithWebSocket = () => {
     webRTCHandler.handleUserHangedUp();
   });
 
-  //listeners related with group call
-  
+  // listeners related with group calls
+
   socket.on('group-call-join-request', (data) => {
     webRTCGroupCallHandler.connectToNewUser(data);
-  })
+  });
+
+  socket.on('group-call-user-left', (data) => {
+    webRTCGroupCallHandler.removeInactiveStream(data);
+  });
 };
 
 export const registerNewUser = (username) => {
@@ -91,15 +94,19 @@ export const sendUserHangedUp = (data) => {
   socket.emit('user-hanged-up', data);
 };
 
-//emitting events related with group calls
+// emitting events related with group calls
 
 export const registerGroupCall = (data) => {
-  socket.emit('group-call-register', data)
+  socket.emit('group-call-register', data);
 };
 
 export const userWantsToJoinGroupCall = (data) => {
-  socket.emit('group-call-join-request', data)
-}
+  socket.emit('group-call-join-request', data);
+};
+
+export const userLeftGroupCall = (data) => {
+  socket.emit('group-call-user-left', data);
+};
 
 const handleBroadcastEvents = (data) => {
   switch (data.event) {

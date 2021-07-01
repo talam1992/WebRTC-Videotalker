@@ -6,24 +6,28 @@ import * as webRTCGroupCallHandler from '../../../utils/webRTC/webRTCGroupCallHa
 import GroupCallRoom from '../GroupCallRoom/GroupCallRoom';
 
 const GroupCall = (props) => {
-    const { callState, localStream, groupCallActive, groupCallStreams }  = props;
+  const { callState, localStream, groupCallActive, groupCallStreams } = props;
 
-    const createRoom = () => {
-        // creatie room
-        webRTCGroupCallHandler.createNewGroupCall();
-    };
+  const createRoom = () => {
+    webRTCGroupCallHandler.createNewGroupCall();
+  };
 
-    return (
-        <>
-            {!groupCallActive && localStream && callState !== callStates.CALL_IN_PROGRESS && 
-                <GroupCallButton onClickHandler={createRoom} label='Create room'/>}
-            {groupCallActive && <GroupCallRoom groupCallStreams={groupCallStreams} />}
-        </>
-    );
+  const leaveRoom = () => {
+    webRTCGroupCallHandler.leaveGroupCall();
+  };
+
+  return (
+    <>
+      {!groupCallActive && localStream && callState !== callStates.CALL_IN_PROGRESS &&
+        <GroupCallButton onClickHandler={createRoom} label='Create room' />}
+      {groupCallActive && <GroupCallRoom groupCallStreams={groupCallStreams} />}
+      {groupCallActive && <GroupCallButton onClickHandler={leaveRoom} label='Leave room' />}
+    </>
+  );
 };
 
 const mapStoreStateToProps = ({ call }) => ({
-    ...call
+  ...call
 });
 
 export default connect(mapStoreStateToProps)(GroupCall);

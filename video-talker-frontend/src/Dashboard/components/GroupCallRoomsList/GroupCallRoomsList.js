@@ -5,7 +5,6 @@ import './GroupCallRoomsList.css';
 
 const GroupCallRoomsList = (props) => {
   const { groupCallRooms } = props;
-
   return (
     <>
       {groupCallRooms.map(room => <GroupCallRoomsListItem key={room.roomId} room={room} />)}
