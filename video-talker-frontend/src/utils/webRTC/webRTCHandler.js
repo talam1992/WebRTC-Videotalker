@@ -1,5 +1,5 @@
 import store from '../../store/store';
-import { setLocalStream, setCallState, callStates, setCallingDialogVisible, setCallerUsername, setCallRejected, setRemoteStream, setScreenSharingActive, resetCallDataState } from '../../store/actions/callActions';
+import { setLocalStream, setCallState, callStates, setCallingDialogVisible, setCallerUsername, setCallRejected, setRemoteStream, setScreenSharingActive, resetCallDataState, setMessage } from '../../store/actions/callActions';
 import * as wss from '../wssConnection/wssConnection';
 
 const preOfferAnswers = {
@@ -58,10 +58,11 @@ const createPeerConnection = () => {
     const dataChannel = event.channel;
 
     dataChannel.onopen = () => {
-      console.log('peer connectio is ready to recieve data channel messages')
+      console.log('peer connection is ready to recieve data channel messages')
     };
 
     dataChannel.onmessage = (event) => {
+      store.dispatch(setMessage(event.data));
     };
   };
 
@@ -250,4 +251,8 @@ const resetCallDataAfterHangUp = () => {
 export const resetCallData = () => {
   connectedUserSocketId = null;
   store.dispatch(setCallState(callStates.CALL_AVAILABLE));
+};
+
+export const sendMessageUsingDataChannel =  (message) => {
+  dataChannel.send(message);
 };
