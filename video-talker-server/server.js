@@ -28,7 +28,7 @@ const io = socket(server, {
 });
 
 let peers = [];
-const groupCallRooms = [];
+let groupCallRooms = [];
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
@@ -143,6 +143,15 @@ io.on('connection', (socket) => {
 
     io.to(data.roomId).emit('group-call-user-left', {
       streamId: data.streamId
+    });
+  });
+
+  socket.on('group-call-closed-by-host', (data) => {
+    groupCallRooms = groupCallRooms.filter(room => room.peerId !== data.peerId);
+
+    io.sockets.emit('broadcast', {
+      event: broadcastEventTypes.GROUP_CALL_ROOMS,
+      groupCallRooms
     });
   });
 });

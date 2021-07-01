@@ -108,6 +108,10 @@ export const userLeftGroupCall = (data) => {
   socket.emit('group-call-user-left', data);
 };
 
+export const groupCallClosedByHost = (data) => {
+  socket.emit('group-call-closed-by-host', data);
+};
+
 const handleBroadcastEvents = (data) => {
   switch (data.event) {
     case broadcastEventTypes.ACTIVE_USERS:
@@ -115,7 +119,17 @@ const handleBroadcastEvents = (data) => {
       store.dispatch(dashboardActions.setActiveUsers(activeUsers));
       break;
     case broadcastEventTypes.GROUP_CALL_ROOMS:
-      store.dispatch(dashboardActions.setGroupCalls(data.groupCallRooms));
+      const groupCallRooms = data.groupCallRooms.filter(room => room.socketId !== socket.id);
+      const activeGroupCallRoomId = webRTCGroupCallHandler.checkActiveGroupCall();
+
+      if (activeGroupCallRoomId) {
+        const room = groupCallRooms.find(room => room.roomId === activeGroupCallRoomId);
+        if (!room) {
+          webRTCGroupCallHandler.clearGroupData();
+        }
+      }
+      store.dispatch(dashboardActions.setGroupCalls(groupCallRooms));
+      break;
     default:
       break;
   }
