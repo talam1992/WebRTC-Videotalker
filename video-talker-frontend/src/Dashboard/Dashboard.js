@@ -17,7 +17,7 @@ import './Dashboard.css';
 
 const Dashboard = ({ username, callState }) => {
   useEffect(() => {
-    axios.get('http://localhost:5000/api/get-turn-credentials/').then(
+    axios.get('https://videotalkerserver.herokuapp.com/').then(
       responseData => {
         console.log(responseData);
         setTurnServers(responseData.data.token.iceServers);

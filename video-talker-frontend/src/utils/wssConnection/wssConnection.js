@@ -4,7 +4,7 @@ import * as dashboardActions from '../../store/actions/dashboardActions';
 import * as webRTCHandler from '../webRTC/webRTCHandler';
 import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler';
 
-const SERVER = 'http://localhost:5000';
+const SERVER = 'https://videotalkerserver.herokuapp.com/';
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
