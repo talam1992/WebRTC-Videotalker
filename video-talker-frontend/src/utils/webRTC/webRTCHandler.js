@@ -17,6 +17,13 @@ const defaultConstrains = {
   audio: true
 };
 
+const configuration = {
+  iceServers: [{
+    urls: 'stun:stun.l.google.com:13902'
+  }]
+};
+
+
 let connectedUserSocketId;
 let peerConnection;
 let dataChannel;
@@ -36,14 +43,6 @@ export const getLocalStream = () => {
 ;
 
 const createPeerConnection = () => {
-  const turnServers = getTurnServers();
-
-  const configuration = {
-    iceServers: [...turnServers, { urls: 'stun:stun.l.google.com:13902'}],
-    iceTransportPolicy: 'relay'
-  };
-  
-
   peerConnection = new RTCPeerConnection(configuration);
 
   const localStream = store.getState().call.localStream;
