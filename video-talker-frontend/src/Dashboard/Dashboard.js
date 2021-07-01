@@ -9,13 +9,24 @@ import DashboardInformation from './components/DashboardInformation/DashboardInf
 import { callStates } from '../store/actions/callActions';
 import GroupCallRoomsList from './components/GroupCallRoomsList/GroupCallRoomsList';
 import GroupCall from './components/GroupCall/GroupCall';
+import axios from 'axios';
+import { setTurnServers } from '../utils/webRTC/TURN';
 
 import './Dashboard.css';
 
+
 const Dashboard = ({ username, callState }) => {
   useEffect(() => {
-    webRTCHandler.getLocalStream();
-    webRTCGroupHandler.connectWithMyPeer();
+    axios.get('http://localhost:5000/api/get-turn-credentials/').then(
+      responseData => {
+        console.log(responseData);
+        setTurnServers(responseData.data.token.iceServers);
+        webRTCHandler.getLocalStream();
+        webRTCGroupHandler.connectWithMyPeer();
+      }
+    ).catch(err => {
+      console.log(err);
+    })
   }, []);
 
   return (
